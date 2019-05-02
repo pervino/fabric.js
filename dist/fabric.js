@@ -1,4 +1,4 @@
-/* build: `node build.js modules=ALL minifier=uglifyjs` */
+/* build: `node build.js modules=ALL exclude=node minifier=uglifyjs` */
 /*! Fabric.js Copyright 2008-2015, Printio (Juriy Zaytsev, Maxim Chernyak) */
 
 var fabric = fabric || { version: '2.7.0' };
@@ -1276,7 +1276,7 @@ root.dblclick = function(conf) {
 	conf.gesture = conf.gesture || "dbltap";
 	conf.maxFingers = conf.maxFingers || conf.fingers || 1;
 	// Setting up local variables.
-	var delay = 700; // in milliseconds
+	var delay = 50; // in milliseconds
 	var time0, time1, timeout;
 	var pointer0, pointer1;
 	// Tracking the events.
@@ -30236,7 +30236,7 @@ fabric.util.object.extend(fabric.IText.prototype, /** @lends fabric.IText.protot
     this.on('mousedblclick', function(options) {
       this.selectWord(this.getSelectionStartFromPointer(options.e));
     });
-    this.on('mousedblclick', function(options) {
+    this.on('tripleclick', function(options) {
       this.selectLine(this.getSelectionStartFromPointer(options.e));
     });
   },
