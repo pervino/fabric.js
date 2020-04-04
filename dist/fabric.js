@@ -21429,9 +21429,10 @@ fabric.util.object.extend(fabric.StaticCanvas.prototype, /** @lends fabric.Stati
         p.y = maxHeight;
       }
 
-      // add canvas offset on document
-      p.x += this.canvas._offset.left;
-      p.y += this.canvas._offset.top;
+      // Don't add canvas offset to the document since we are overriding standard behavior
+      // and placing the textrea within the container rather than at the end of the document
+      // p.x += this.canvas._offset.left;
+      // p.y += this.canvas._offset.top;
 
       return { left: p.x + 'px', top: p.y + 'px', fontSize: charHeight + 'px', charHeight: charHeight };
     },
@@ -22088,7 +22089,11 @@ fabric.util.object.extend(fabric.IText.prototype, /** @lends fabric.IText.protot
     this.hiddenTextarea.style.cssText = 'position: absolute; top: ' + style.top +
     '; left: ' + style.left + '; z-index: -999; opacity: 0; width: 1px; height: 1px; font-size: 1px;' +
     ' paddingｰtop: ' + style.fontSize + ';';
-    fabric.document.body.appendChild(this.hiddenTextarea);
+
+    // Append hiddenTextarea to the canvas wrapperEl. This change from the standard
+    // behavior of appending to the document body was done so that the textarea will
+    // be placed within the focus locked area where the canvas is rendered.
+    this.canvas.wrapperEl.appendChild(this.hiddenTextarea);
 
     fabric.util.addListener(this.hiddenTextarea, 'keydown', this.onKeyDown.bind(this));
     fabric.util.addListener(this.hiddenTextarea, 'keyup', this.onKeyUp.bind(this));

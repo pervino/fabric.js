@@ -550,9 +550,10 @@
         p.y = maxHeight;
       }
 
-      // add canvas offset on document
-      p.x += this.canvas._offset.left;
-      p.y += this.canvas._offset.top;
+      // Don't add canvas offset to the document since we are overriding standard behavior
+      // and placing the textrea within the container rather than at the end of the document
+      // p.x += this.canvas._offset.left;
+      // p.y += this.canvas._offset.top;
 
       return { left: p.x + 'px', top: p.y + 'px', fontSize: charHeight + 'px', charHeight: charHeight };
     },
