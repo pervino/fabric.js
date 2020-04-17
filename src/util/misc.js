@@ -363,6 +363,11 @@
       //     https://bugzilla.mozilla.org/show_bug.cgi?id=935069
       if (url.indexOf('data') !== 0 && crossOrigin) {
         img.crossOrigin = crossOrigin;
+        
+        // Bust cache, otherwise Chrome will run into a crossorigin error
+        url = new URL(url)
+        url.searchParams.set("t", Date.now())
+        url = url.toString()
       }
 
       // IE10 / IE11-Fix: SVG contents from data: URI
